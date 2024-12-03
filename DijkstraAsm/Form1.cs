@@ -19,6 +19,7 @@ namespace DijkstraAsm
             {
                 try
                 {
+                    lblInputFilePath.Text = openFileDialog1.FileName;
                     var sr = new StreamReader(openFileDialog1.FileName);
                     test = sr.ReadToEnd();
                 }
@@ -29,7 +30,7 @@ namespace DijkstraAsm
                 }
             }
 
-            MessageBox.Show(test);
+            //MessageBox.Show(test);
         }
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -45,6 +46,7 @@ namespace DijkstraAsm
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 _path = saveFileDialog1.FileName;
+                tbPath.Text = _path;
             }
         }
     }
