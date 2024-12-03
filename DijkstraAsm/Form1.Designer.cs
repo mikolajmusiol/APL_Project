@@ -82,8 +82,8 @@
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.9352226F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 72.06478F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.913044F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 76.08696F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel3.Controls.Add(lblInputFilePath, 1, 0);
             tableLayoutPanel3.Controls.Add(chooseInputFileButton, 0, 1);
@@ -99,11 +99,13 @@
             // 
             // lblInputFilePath
             // 
+            lblInputFilePath.Dock = DockStyle.Left;
             lblInputFilePath.Enabled = false;
-            lblInputFilePath.Location = new Point(157, 3);
+            lblInputFilePath.Location = new Point(135, 3);
             lblInputFilePath.MaximumSize = new Size(1000, 0);
+            lblInputFilePath.MinimumSize = new Size(317, 23);
             lblInputFilePath.Name = "lblInputFilePath";
-            lblInputFilePath.Size = new Size(302, 23);
+            lblInputFilePath.Size = new Size(317, 23);
             lblInputFilePath.TabIndex = 10;
             // 
             // chooseInputFileButton
@@ -194,11 +196,13 @@
             // 
             // tbPath
             // 
+            tbPath.Dock = DockStyle.Left;
             tbPath.Enabled = false;
             tbPath.Location = new Point(245, 113);
             tbPath.MaximumSize = new Size(1000, 0);
+            tbPath.MinimumSize = new Size(308, 23);
             tbPath.Name = "tbPath";
-            tbPath.Size = new Size(255, 23);
+            tbPath.Size = new Size(308, 23);
             tbPath.TabIndex = 9;
             // 
             // label1
@@ -282,6 +286,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 411);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximumSize = new Size(600, 450);
+            MinimumSize = new Size(600, 450);
             Name = "Form1";
             Text = "Dijkstra's Algorithm";
             tabControl1.ResumeLayout(false);
