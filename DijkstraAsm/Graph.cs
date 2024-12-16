@@ -19,11 +19,8 @@ public class Graph
     {
         using (var reader = new StreamReader(inputPath))
         {
-            try
-            {
-                StartNode = int.Parse(reader.ReadLine());
-                EndNode = int.Parse(reader.ReadLine());
-            } catch { }
+            StartNode = int.Parse(reader.ReadLine());
+            EndNode = int.Parse(reader.ReadLine());
             
             Regex reg = new Regex(@"\d+");
 
@@ -33,14 +30,10 @@ public class Graph
             {
                 var match = reg.Matches(line);
 
-                try
-                {
-                    Connections.Add(new Connection(
-                        int.Parse(match[0].Value), 
-                        int.Parse(match[1].Value), 
-                        int.Parse(match[2].Value)));
-                } catch { }
-                
+                Connections.Add(new Connection(
+                    int.Parse(match[0].Value), 
+                    int.Parse(match[1].Value), 
+                    int.Parse(match[2].Value)));
             }
         };
     }

@@ -60,7 +60,6 @@ namespace DijkstraAsm
             catch (Exception ex)
             {
                 MessageBox.Show("Error occured: ", ex.Message);
-                
             }
         }
     }
