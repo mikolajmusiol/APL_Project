@@ -1,4 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace DijkstraAsm;
 
@@ -15,13 +20,28 @@ public class Graph
         using (var reader = new StreamReader(inputPath))
         {
             try
-            {   
+            {
                 StartNode = int.Parse(reader.ReadLine());
                 EndNode = int.Parse(reader.ReadLine());
-            }
-            catch {}
+            } catch { }
+            
+            Regex reg = new Regex(@"\d+");
 
-            Regex regex = new Regex(@"");
+            string line;
+
+            while((line = reader.ReadLine()) != null)
+            {
+                var match = reg.Matches(line);
+
+                try
+                {
+                    Connections.Add(new Connection(
+                        int.Parse(match[0].Value), 
+                        int.Parse(match[1].Value), 
+                        int.Parse(match[2].Value)));
+                } catch { }
+                
+            }
         };
     }
 }
