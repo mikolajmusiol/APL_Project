@@ -30,10 +30,17 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            label7 = new Label();
+            progressBar1 = new ProgressBar();
             tableLayoutPanel3 = new TableLayoutPanel();
+            label4 = new Label();
             lblInputFilePath = new TextBox();
             chooseInputFileButton = new Button();
-            label4 = new Label();
+            label6 = new Label();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
+            button1 = new Button();
             tabPage2 = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
             generateButton = new Button();
@@ -51,6 +58,7 @@
             saveFileDialog1 = new SaveFileDialog();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tabPage2.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -71,6 +79,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(tableLayoutPanel4);
             tabPage1.Controls.Add(tableLayoutPanel3);
             tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(3, 4, 3, 4);
@@ -81,31 +90,85 @@
             tabPage1.Text = "Algorithm";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.27646F));
+            tableLayoutPanel4.Controls.Add(label7, 0, 0);
+            tableLayoutPanel4.Controls.Add(progressBar1, 0, 1);
+            tableLayoutPanel4.Dock = DockStyle.Bottom;
+            tableLayoutPanel4.Location = new Point(3, 219);
+            tableLayoutPanel4.Margin = new Padding(3, 4, 3, 4);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 2;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.6976748F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 89.30232F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel4.Size = new Size(633, 215);
+            tableLayoutPanel4.TabIndex = 3;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Dock = DockStyle.Right;
+            label7.Location = new Point(554, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(76, 23);
+            label7.TabIndex = 0;
+            label7.Text = "Time: 1ms";
+            // 
+            // progressBar1
+            // 
+            progressBar1.Dock = DockStyle.Top;
+            progressBar1.Location = new Point(3, 26);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(627, 29);
+            progressBar1.TabIndex = 1;
+            // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 2;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.27646F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 74.72354F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
-            tableLayoutPanel3.Controls.Add(lblInputFilePath, 1, 0);
-            tableLayoutPanel3.Controls.Add(chooseInputFileButton, 0, 1);
             tableLayoutPanel3.Controls.Add(label4, 0, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Controls.Add(lblInputFilePath, 1, 1);
+            tableLayoutPanel3.Controls.Add(chooseInputFileButton, 1, 0);
+            tableLayoutPanel3.Controls.Add(label6, 0, 1);
+            tableLayoutPanel3.Controls.Add(radioButton1, 0, 2);
+            tableLayoutPanel3.Controls.Add(radioButton2, 0, 3);
+            tableLayoutPanel3.Controls.Add(button1, 0, 4);
+            tableLayoutPanel3.Dock = DockStyle.Top;
             tableLayoutPanel3.Location = new Point(3, 4);
             tableLayoutPanel3.Margin = new Padding(3, 4, 3, 4);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 9.404388F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 90.59561F));
-            tableLayoutPanel3.Size = new Size(633, 430);
+            tableLayoutPanel3.RowCount = 5;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 20.0000057F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 19.9999962F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 19.9999962F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 19.9999962F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 20.0000057F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.Size = new Size(633, 215);
             tableLayoutPanel3.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Left;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(3, 4);
+            label4.Margin = new Padding(3, 4, 3, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(150, 39);
+            label4.TabIndex = 0;
+            label4.Text = "Select input file:";
             // 
             // lblInputFilePath
             // 
             lblInputFilePath.Dock = DockStyle.Left;
             lblInputFilePath.Enabled = false;
-            lblInputFilePath.Location = new Point(163, 4);
-            lblInputFilePath.Margin = new Padding(3, 4, 3, 4);
+            lblInputFilePath.Location = new Point(163, 51);
+            lblInputFilePath.Margin = new Padding(3, 8, 3, 4);
             lblInputFilePath.MaximumSize = new Size(1142, 4);
             lblInputFilePath.MinimumSize = new Size(362, 23);
             lblInputFilePath.Name = "lblInputFilePath";
@@ -114,26 +177,65 @@
             // 
             // chooseInputFileButton
             // 
-            chooseInputFileButton.Location = new Point(3, 44);
+            chooseInputFileButton.Dock = DockStyle.Left;
+            chooseInputFileButton.Location = new Point(163, 4);
             chooseInputFileButton.Margin = new Padding(3, 4, 3, 4);
             chooseInputFileButton.Name = "chooseInputFileButton";
             chooseInputFileButton.RightToLeft = RightToLeft.No;
-            chooseInputFileButton.Size = new Size(96, 33);
+            chooseInputFileButton.Size = new Size(96, 35);
             chooseInputFileButton.TabIndex = 1;
             chooseInputFileButton.Text = "Choose file";
             chooseInputFileButton.UseVisualStyleBackColor = true;
             chooseInputFileButton.Click += chooseFileButton_Click;
             // 
-            // label4
+            // label6
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(3, 4);
-            label4.Margin = new Padding(3, 4, 3, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(150, 28);
-            label4.TabIndex = 0;
-            label4.Text = "Select input file:";
+            label6.AutoSize = true;
+            label6.Dock = DockStyle.Left;
+            label6.Font = new Font("Segoe UI", 12F);
+            label6.Location = new Point(3, 47);
+            label6.Margin = new Padding(3, 4, 3, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(91, 38);
+            label6.TabIndex = 11;
+            label6.Text = "File path:";
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
+            radioButton1.Dock = DockStyle.Left;
+            radioButton1.Font = new Font("Segoe UI", 12F);
+            radioButton1.Location = new Point(3, 88);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(57, 36);
+            radioButton1.TabIndex = 12;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "C#";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Dock = DockStyle.Top;
+            radioButton2.Font = new Font("Segoe UI", 12F);
+            radioButton2.Location = new Point(3, 130);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(154, 32);
+            radioButton2.TabIndex = 13;
+            radioButton2.Text = "ASM";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Dock = DockStyle.Fill;
+            button1.Font = new Font("Segoe UI", 12F);
+            button1.Location = new Point(3, 172);
+            button1.Name = "button1";
+            button1.Size = new Size(154, 40);
+            button1.TabIndex = 14;
+            button1.Text = "Run";
+            button1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -308,6 +410,8 @@
             Text = "Dijkstra's Algorithm";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             tabPage2.ResumeLayout(false);
@@ -340,5 +444,12 @@
         private Label label4;
         private Button chooseInputFileButton;
         private TextBox lblInputFilePath;
+        private Label label6;
+        private RadioButton radioButton1;
+        private RadioButton radioButton2;
+        private Button button1;
+        private TableLayoutPanel tableLayoutPanel4;
+        private Label label7;
+        private ProgressBar progressBar1;
     }
 }
