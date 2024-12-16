@@ -19,7 +19,7 @@ namespace DijkstraAsm
             {
                 try
                 {
-                    lblInputFilePath.Text = openFileDialog1.FileName;
+                    inputPathTextBox.Text = openFileDialog1.FileName;
                     var sr = new StreamReader(openFileDialog1.FileName);
                     test = sr.ReadToEnd();
                 }
@@ -29,8 +29,6 @@ namespace DijkstraAsm
                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
-
-            //MessageBox.Show(test);
         }
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -47,6 +45,22 @@ namespace DijkstraAsm
             {
                 _path = saveFileDialog1.FileName;
                 tbPath.Text = _path;
+            }
+        }
+
+        private void runButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string inputPath = inputPathTextBox.Text;
+                Graph graph = new Graph(inputPath);
+                var path = Algorithm.GetShortestPath(graph);
+                MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path), "Results");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occured: ", ex.Message);
+                
             }
         }
     }
