@@ -16,6 +16,8 @@ namespace DijkstraAsm
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+
+            
             
         }
     }
