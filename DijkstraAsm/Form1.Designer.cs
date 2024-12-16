@@ -82,7 +82,7 @@
             tabPage1.Controls.Add(tableLayoutPanel3);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(558, 325);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Algorithm";
@@ -243,7 +243,7 @@
             tabPage2.Controls.Add(tableLayoutPanel1);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 3, 3, 3);
+            tabPage2.Padding = new Padding(3);
             tabPage2.RightToLeft = RightToLeft.No;
             tabPage2.Size = new Size(558, 325);
             tabPage2.TabIndex = 1;
@@ -274,6 +274,7 @@
             generateButton.TabIndex = 7;
             generateButton.Text = "Generate";
             generateButton.UseVisualStyleBackColor = true;
+            generateButton.Click += generateButton_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -371,7 +372,7 @@
             label2.Name = "label2";
             label2.Size = new Size(257, 23);
             label2.TabIndex = 2;
-            label2.Text = "Minimal number of connections:";
+            label2.Text = "Maximum number of connections:";
             // 
             // label5
             // 
