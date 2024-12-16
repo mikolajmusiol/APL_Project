@@ -52,8 +52,11 @@ public static class Algorithm
         return distances;
     }
 
-    public static List<int> GetShortestPath(Graph graph)
+    public static List<int> GetShortestPath(Graph graph, ProgressBar progressBar)
     {
+        progressBar.Maximum = graph.Connections.Count;
+        progressBar.Value = 0;
+        int progressCounter = 0;
         var distances = ComputeShortestDistances(graph);
         if (distances[graph.EndNode] == int.MaxValue)
             return new List<int>(); 
@@ -76,6 +79,16 @@ public static class Algorithm
                         nextNode = neighbor;
                         break;
                     }
+                }
+
+                progressCounter++;
+                if (progressCounter % (graph.Connections.Count / progressBar.Maximum + 1) == 0)
+                {
+                    progressBar.Invoke((MethodInvoker)(() =>
+                    {
+                        if (progressBar.Value < progressBar.Maximum)
+                            progressBar.Value++;
+                    }));
                 }
             }
 

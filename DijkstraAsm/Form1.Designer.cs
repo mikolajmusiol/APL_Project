@@ -31,7 +31,7 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tableLayoutPanel4 = new TableLayoutPanel();
-            label7 = new Label();
+            timeLabel = new Label();
             progressBar1 = new ProgressBar();
             tableLayoutPanel3 = new TableLayoutPanel();
             label4 = new Label();
@@ -92,7 +92,7 @@
             // 
             tableLayoutPanel4.ColumnCount = 1;
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.27646F));
-            tableLayoutPanel4.Controls.Add(label7, 0, 0);
+            tableLayoutPanel4.Controls.Add(timeLabel, 0, 0);
             tableLayoutPanel4.Controls.Add(progressBar1, 0, 1);
             tableLayoutPanel4.Dock = DockStyle.Bottom;
             tableLayoutPanel4.Location = new Point(3, 161);
@@ -104,15 +104,15 @@
             tableLayoutPanel4.Size = new Size(552, 161);
             tableLayoutPanel4.TabIndex = 3;
             // 
-            // label7
+            // timeLabel
             // 
-            label7.AutoSize = true;
-            label7.Dock = DockStyle.Right;
-            label7.Location = new Point(488, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(61, 17);
-            label7.TabIndex = 0;
-            label7.Text = "Time: 1ms";
+            timeLabel.AutoSize = true;
+            timeLabel.Dock = DockStyle.Right;
+            timeLabel.Location = new Point(513, 0);
+            timeLabel.Name = "timeLabel";
+            timeLabel.Size = new Size(36, 17);
+            timeLabel.TabIndex = 0;
+            timeLabel.Text = "Time:";
             // 
             // progressBar1
             // 
@@ -440,7 +440,7 @@
         private RadioButton radioButton2;
         private Button runButton;
         private TableLayoutPanel tableLayoutPanel4;
-        private Label label7;
+        private Label timeLabel;
         private ProgressBar progressBar1;
     }
 }

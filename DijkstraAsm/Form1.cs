@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Security;
 using static System.Net.Mime.MediaTypeNames;
@@ -61,7 +62,11 @@ namespace DijkstraAsm
             {
                 string inputPath = inputPathTextBox.Text;
                 Graph graph = new Graph(inputPath);
-                var path = Algorithm.GetShortestPath(graph);
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                var path = Algorithm.GetShortestPath(graph, progressBar1);
+                stopwatch.Stop();
+                timeLabel.Text = "Time: " + stopwatch.Elapsed.TotalMilliseconds.ToString() + "ms";
                 MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path), "Results");
             }
             catch (Exception ex)
