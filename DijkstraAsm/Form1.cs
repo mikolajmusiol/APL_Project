@@ -29,8 +29,6 @@ namespace DijkstraAsm
                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
-
-            //MessageBox.Show(test);
         }
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -55,7 +53,9 @@ namespace DijkstraAsm
             try
             {
                 string inputPath = inputPathTextBox.Text;
-                
+                Graph graph = new Graph(inputPath);
+                var path = Algorithm.GetShortestPath(graph);
+                MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path), "Results");
             }
             catch (Exception ex)
             {

@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace DijkstraAsm;
 
-public class Algorithm
+public static class Algorithm
 {
-    public Dictionary<int, int> ComputeShortestDistances(Graph graph)
+    public static Dictionary<int, int> ComputeShortestDistances(Graph graph)
     {
         var distances = new Dictionary<int, int>();
         var visited = new HashSet<int>();
         var nodes = graph.Connections.SelectMany(c => new[] { c.IdNodeA, c.IdNodeB }).Distinct().ToList();
 
-        // Initialize distances to infinity, except the start node
         foreach (var node in nodes)
         {
             distances[node] = int.MaxValue;
@@ -23,18 +22,16 @@ public class Algorithm
 
         while (visited.Count < nodes.Count)
         {
-            // Select the unvisited node with the smallest distance
             var currentNode = nodes
                 .Where(n => !visited.Contains(n))
                 .OrderBy(n => distances[n])
                 .FirstOrDefault();
 
             if (distances[currentNode] == int.MaxValue)
-                break; // Remaining nodes are unreachable
+                break; 
 
             visited.Add(currentNode);
 
-            // Get neighbors of the current node
             var neighbors = graph.Connections
                 .Where(c => c.IdNodeA == currentNode || c.IdNodeB == currentNode)
                 .Select(c => (Neighbor: c.IdNodeA == currentNode ? c.IdNodeB : c.IdNodeA, Weight: c.Weight));
@@ -55,11 +52,11 @@ public class Algorithm
         return distances;
     }
 
-    public List<int> GetShortestPath(Graph graph)
+    public static List<int> GetShortestPath(Graph graph)
     {
         var distances = ComputeShortestDistances(graph);
         if (distances[graph.EndNode] == int.MaxValue)
-            return new List<int>(); // No path exists
+            return new List<int>(); 
 
         var path = new List<int>();
         var currentNode = graph.EndNode;
@@ -67,15 +64,25 @@ public class Algorithm
         while (currentNode != graph.StartNode)
         {
             path.Add(currentNode);
-            currentNode = graph.Connections
-                .Where(c => c.IdNodeA == currentNode || c.IdNodeB == currentNode)
-                .Select(c => (c.IdNodeA == currentNode ? c.IdNodeB : c.IdNodeA, c.Weight))
-                .Where(n => distances[n.Item1] + n.Weight == distances[currentNode])
-                .Select(n => n.Item1)
-                .FirstOrDefault();
 
-            if (currentNode == 0)
-                return new List<int>(); // No valid path
+            int? nextNode = null;
+            foreach (var connection in graph.Connections)
+            {
+                if (connection.IdNodeA == currentNode || connection.IdNodeB == currentNode)
+                {
+                    var neighbor = connection.IdNodeA == currentNode ? connection.IdNodeB : connection.IdNodeA;
+                    if (distances[neighbor] + connection.Weight == distances[currentNode])
+                    {
+                        nextNode = neighbor;
+                        break;
+                    }
+                }
+            }
+
+            if (nextNode == null)
+                return new List<int>();
+
+            currentNode = nextNode.Value;
         }
 
         path.Add(graph.StartNode);
