@@ -33,10 +33,17 @@ namespace DijkstraAsm
 
         private void generateButton_Click(object sender, EventArgs e)
         {
-            //validation here
-            int nodesCount = int.Parse(txtNodesCount.Text);
-            int minConnections = int.Parse(txtMinConn.Text);
-            int weightsRange = int.Parse(txtWightsRange.Text);
+            try
+            {
+                int nodesCount = int.Parse(txtNodesCount.Text);
+                int minConnections = int.Parse(txtMinConn.Text);
+                int weightsRange = int.Parse(txtWightsRange.Text);
+                GraphGeneration.GenerateGraphFile(nodesCount, minConnections, weightsRange, _path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error occured");
+            }
         }
 
         private void chooseDirectoryButton_Click(object sender, EventArgs e)
@@ -59,7 +66,7 @@ namespace DijkstraAsm
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error occured: ", ex.Message);
+                MessageBox.Show(ex.Message, "Error occured");
             }
         }
     }
