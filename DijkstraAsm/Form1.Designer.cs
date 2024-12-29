@@ -121,6 +121,7 @@
             progressBar1.Margin = new Padding(3, 2, 3, 2);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(546, 22);
+            progressBar1.Step = 1;
             progressBar1.TabIndex = 1;
             // 
             // tableLayoutPanel3
