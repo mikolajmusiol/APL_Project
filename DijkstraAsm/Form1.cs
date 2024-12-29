@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Security;
 using static System.Net.Mime.MediaTypeNames;
@@ -55,18 +56,35 @@ namespace DijkstraAsm
             }
         }
 
-        private void runButton_Click(object sender, EventArgs e)
+        private async void runButton_Click(object sender, EventArgs e)
         {
             try
             {
                 string inputPath = inputPathTextBox.Text;
                 Graph graph = new Graph(inputPath);
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                var progress = new Progress<int>(x =>
+                {
+                    progressBar1.Value = x;
+                });
+                await Task.Run(() => FakeProgressBar(progress));
                 var path = Algorithm.GetShortestPath(graph);
+                stopwatch.Stop();
+                timeLabel.Text = "Time: " + stopwatch.Elapsed.TotalMilliseconds.ToString() + "ms";
                 MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path), "Results");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error occured");
+            }
+        }
+
+        private void FakeProgressBar(IProgress<int> progress)
+        {
+            for (int i = 0; i <= 100; i++)
+            {
+                progress.Report(i);
             }
         }
     }
