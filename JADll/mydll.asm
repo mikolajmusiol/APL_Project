@@ -1,7 +1,5 @@
 .data
-
-Max DQ 2147483647
-dist DQ 1000 dup(0) ;dist[V]
+dist DQ 1000 dup(2147483647) ;dist[V]
 sptSet DQ 1000 dup(0) ;sptSet[v]
 
 storeVert DQ 0
@@ -9,9 +7,6 @@ storeVertM DQ 0
 storeArrAdd DQ 0
 storeSrc DQ 0
 storeGoal DQ 0
-storeGraphCell DQ 0
-storeDistJ DQ 0
-storeDistU DQ 0
 
 u DQ 0
 
@@ -22,154 +17,132 @@ min DQ 0
 
 MyProc1 PROC
 
+	;STORING ALL ARGUMENTS
 	mov [storeArrAdd], rcx ;save Array Address to memory
 	mov [storeVert], rdx ;save # of Vert to memory
 	mov [storeVertM], rdx
 	dec [storeVertM] ;save # of Vert - 1 to memory
+	dec r8
+	dec r9
+	mov [storeSrc], r8
+	mov [storeGoal], r9
+
 	mov rcx, [storeVert] ;move # of Vert to ecx (counter)
-	mov rax, Max ;mov 2147483647 to rax
-	mov rbx, OFFSET dist ;move address of dist[] to rbx
-	xor rdi, rdi ;Counter = 0
-	dec r8 ;?
-	dec r9 ;?
-	mov [storeSrc], r8 ;starting node?
-	mov [storeGoal], r9 ;ending node?
-
-loop1:
+	mov rax, 2147483647 ;mov 2147483647 to rax
+	mov r8, OFFSET dist ;move address of dist[] to rbx
 	
-	mov [rbx+rdi*8], rax ;fill dist[] with 2147483647 (pls no distances bigger than 2147483647)
-	inc rdi ;Counter++
-
-loop loop1 ;decrements rcx by 1
-
 	mov rdi, [storeSrc]
-	mov rax, OFFSET dist
+	mov r11, 0
+	mov [r8+rdi*8], r11
+	
+	mov r9, OFFSET sptSet
+	mov rcx, 0
 
-	mov [rax+rdi*8], rcx ;I don't even remember what this does
+	;r8 = dist, r9 = sptSet
 
-	;Outer loop for(int i = 0; i < #ofVert - 1; i++)
-	;Inner loop for(int j = 0; j < #ofVert; j++)
-
-	;rcx already is 0 (from previous loop)
-
-	;clear this idk
-	mov r8, 0
-	mov r9, OFFSET sptSet ;r9 points to sptSet
-
-loop2:
+loop_main:
 
 	cmp rcx, [storeVertM]
 	je done
 
-	;-----
 
-	call MinDist ;move to rax src of the iteration;
+	call MinDist
 
-	mov [u], rax
+	mov rdx, [storeVert]
+	mov r10, [storeArrAdd]
 
-	mov qword ptr [r9+rax*8], 1 ;mark as visited
-
-	;-----
-
+	mov qword ptr [r9+rax*8], 1
 	mov rbx, 0
+	
 
 loop_nest:
 
-	mov rax, [u]
 	cmp rbx, [storeVert]
-	je nest_done
-	;-----
+	je next_main
+	mov rax, [minIdx]
 
-	;!sptSet[j]
-	mov rdx, [r9+rbx*8]
-	cmp rdx, 0 ;we need 1, e.g. ZF = 1
-	jne loop_log
+	;conditional 1
+	cmp qword ptr [r9+rbx*8], 0
+	jne next_inner
 
-	;dist[u] != Max
-	mov r8, OFFSET dist
-	mov rdx, [r8+rbx*8]
-	mov [storeDistU], rdx
-	cmp rdx, Max
-	je loop_log
+	;conditional 3
+	cmp qword ptr [r8+rax*8], 2147483647
+	je next_inner
 
-	;graph[u][j] != 0
+	;conditional 2
+	;r10 + (rax * rdx + rbx) * 8 
+	;graph[2][4]
+	;mov rbx, 4
+	;mov rax, 2
 	mov rdx, [storeVert]
 	mul rdx
 	add rax, rbx
-	mov rdx, 8
-	mul rdx
-	mov rdx, [storeArrAdd]
-	add rax, rdx
-	mov [storeGraphCell], rax
-	cmp rax, 0
-	je loop_log
+	mov r11, 8
+	mul r11
+	add rax, r10
+	cmp qword ptr [rax], 0
+	je next_inner
 
-	;dist[u] + graph[u][j] < dist[j]
-	mov rdx, [storeDistU]
-	add rax, rdx
-	mov rdx, OFFSET dist
-	mov r8, [rdx+rbx*8]
-	cmp rax, r8
-	jae loop_log
+	;conditional 4 
+	mov r11, [minIdx]
+	mov r12, [r8+r11*8] ; dist[u] in r12
+	add r12, [rax]
 
-	mov rax, [storeDistU]
-	add rax, [storeGraphCell]
-	mov r8, rax
+	cmp r12, [r8+rbx*8]
+	jg next_inner
 
-	;-----
+	;If OK
+	mov [r8+rbx*8], r12
 
-loop_log:
+
+next_inner:
 	inc rbx
 	jmp loop_nest
-	
-nest_done:
 
+next_main:
 	inc rcx
-	jmp loop2
-	
+	jmp loop_main
+
 done:
-	mov rax, OFFSET dist
+	mov rax, r8
 	ret
+
 MyProc1 ENDP
 
-;
-;
 
 MinDist PROC
 	
-	mov rax, [Max]
-	mov [min], rax
-	mov rax, 0
+	mov [min], 2147483647
+	mov r11, [storeVert]
+	xor rax, rax
 	
+loop_mindist:
+	cmp rax, r11
+	je done_loop
 
-loop_dist:
-	cmp rax, [storeVert]
-	je doneD
-
+	;1. cond
 	mov rdx, OFFSET sptSet
-	mov r8, [rdx+rax*8]
-	cmp r8, 0 ;check if (sptSet[v] == false)
-	jne false2
+	mov r10, [rdx+rax*8]
+	cmp r10, 1
+	je loop_it
 
-	;(sptSet[v] == false) 
+	;2. cond
 	mov rdx, OFFSET dist
-	mov r8, [rdx+rax*8]
-	mov rdx, [min]
-	cmp r8, rdx ;check if (dist[v] <= min)
-	jg false2 ;(dist[v] > min)
+	mov r10, [rdx+rax*8]
+	cmp r10, [min]
+	jg loop_it
 
-	;(dist[v] <= min)
-	mov rdx, OFFSET dist
-	mov r8, [rdx+rax*8]
-	mov [min], r8
+	;min = dist[v]
+	mov [min], r10
 
+	;min_index = v
 	mov [minIdx], rax
 
-false2:
+loop_it:
 	inc rax
-	jmp loop_dist
+	jmp loop_mindist
 
-doneD:
+done_loop:
 	mov rax, [minIdx]
 	ret
 
