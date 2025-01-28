@@ -1,6 +1,6 @@
 .data
-dist DQ 1000 dup(2147483647) ;dist[V]
-sptSet DQ 1000 dup(0) ;sptSet[v]
+dist DQ 10000 dup(2147483647) ;dist[V]
+sptSet DQ 10000 dup(0) ;sptSet[v]
 
 storeVert DQ 0
 storeVertM DQ 0
@@ -104,7 +104,8 @@ next_main:
 	jmp loop_main
 
 done:
-	mov rax, r8
+	mov r9, [storeGoal]
+	mov rax, [r8+r9*8]
 	ret
 
 MyProc1 ENDP

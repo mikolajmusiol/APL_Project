@@ -37,7 +37,13 @@ public class Graph
             }
         };
     }
-
+    public int GetNodeCount()
+    {
+        return Connections
+            .SelectMany(c => new[] { c.IdNodeA, c.IdNodeB })
+            .Distinct()
+            .Count();
+    }
     public long[] ToAdjacencyMatrix()
     {
         int maxNode = Connections.SelectMany(c => new[] { c.IdNodeA, c.IdNodeB }).Max();

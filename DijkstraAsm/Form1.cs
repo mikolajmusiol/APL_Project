@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using System.IO;
+using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
 using System.Security;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -77,7 +79,7 @@ namespace DijkstraAsm
                 }
                 else
                 {
-                    length = AssemblyFunctions.MyProc1(graph.ToAdjacencyMatrix(), graph.Connections.Count, graph.StartNode, graph.EndNode);
+                    length = AssemblyFunctions.MyProc1(graph.ToAdjacencyMatrix(), graph.GetNodeCount(), graph.StartNode, graph.EndNode);
                 }
 
                 stopwatch.Stop();
