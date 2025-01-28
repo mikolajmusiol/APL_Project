@@ -68,11 +68,12 @@ namespace DijkstraAsm
                 {
                     progressBar1.Value = x;
                 });
-                await Task.Run(() => FakeProgressBar(progress));
+                await Task.Run(() => ProgressBar(progress));
                 var path = Algorithm.GetShortestPath(graph);
                 stopwatch.Stop();
+                var length = Algorithm.GetShortestPathLength(graph);
                 timeLabel.Text = "Time: " + stopwatch.Elapsed.TotalMilliseconds.ToString() + "ms";
-                MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path), "Results");
+                MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path) + $"\nLength: {length}", "Results");
             }
             catch (Exception ex)
             {
@@ -80,7 +81,7 @@ namespace DijkstraAsm
             }
         }
 
-        private void FakeProgressBar(IProgress<int> progress)
+        private void ProgressBar(IProgress<int> progress)
         {
             for (int i = 0; i <= 100; i++)
             {

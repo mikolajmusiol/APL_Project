@@ -89,4 +89,10 @@ public static class Algorithm
         path.Reverse();
         return path;
     }
+
+    public static int GetShortestPathLength(Graph graph)
+    {
+        var distances = ComputeShortestDistances(graph);
+        return distances.ContainsKey(graph.EndNode) ? distances[graph.EndNode] : int.MaxValue;
+    }
 }
