@@ -61,6 +61,8 @@ namespace DijkstraAsm
             try
             {
                 string inputPath = inputPathTextBox.Text;
+                List<int> path = new List<int>();
+                long length = 0;
                 Graph graph = new Graph(inputPath);
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
@@ -69,9 +71,17 @@ namespace DijkstraAsm
                     progressBar1.Value = x;
                 });
                 await Task.Run(() => ProgressBar(progress));
-                var path = Algorithm.GetShortestPath(graph);
+                if (radioButton1.Checked)
+                {
+                    path = Algorithm.GetShortestPath(graph);
+                }
+                else
+                {
+                    length = AssemblyFunctions.MyProc1(graph.ToAdjacencyMatrix(), graph.Connections.Count, graph.StartNode, graph.EndNode);
+                }
+
                 stopwatch.Stop();
-                var length = Algorithm.GetShortestPathLength(graph);
+                length = Algorithm.GetShortestPathLength(graph);
                 timeLabel.Text = "Time: " + stopwatch.Elapsed.TotalMilliseconds.ToString() + "ms";
                 MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path) + $"\nLength: {length}", "Results");
             }

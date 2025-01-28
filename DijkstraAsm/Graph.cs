@@ -38,11 +38,11 @@ public class Graph
         };
     }
 
-    public int[] ToAdjacencyMatrix()
+    public long[] ToAdjacencyMatrix()
     {
         int maxNode = Connections.SelectMany(c => new[] { c.IdNodeA, c.IdNodeB }).Max();
 
-        int[,] matrix = new int[maxNode + 1, maxNode + 1];
+        long[,] matrix = new long[maxNode + 1, maxNode + 1];
 
         for (int i = 0; i <= maxNode; i++)
             for (int j = 0; j <= maxNode; j++)
@@ -50,12 +50,12 @@ public class Graph
 
         foreach (var connection in Connections)
         {
-            matrix[connection.IdNodeA, connection.IdNodeB] = connection.Weight;
-            matrix[connection.IdNodeB, connection.IdNodeA] = connection.Weight;
+            matrix[(long)connection.IdNodeA, (long)connection.IdNodeB] = (long)connection.Weight;
+            matrix[(long)connection.IdNodeB, (long)connection.IdNodeA] = (long)connection.Weight;
         }
 
         int size = (maxNode + 1) * (maxNode + 1);
-        int[] flatArray = new int[size];
+        long[] flatArray = new long[size];
 
         for (int i = 0; i <= maxNode; i++)
             for (int j = 0; j <= maxNode; j++)
