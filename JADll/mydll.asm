@@ -30,12 +30,35 @@ MyProc1 PROC
 	mov rcx, [storeVert] ;move # of Vert to ecx (counter)
 	mov rax, 2147483647 ;mov 2147483647 to rax
 	mov r8, OFFSET dist ;move address of dist[] to rbx
-	
+	mov r9, OFFSET sptSet
+
+	mov rcx, 0
+
+loopSetDist:
+	cmp rcx, [storeVert]
+	je finDist
+	mov qword ptr [r8+rcx*8], rax
+	inc rcx
+	jmp loopSetDist
+
+finDist:
+
+	mov rcx, 0
+
+loopSetSpt:
+	cmp rcx, [storeVert]
+	je finSpt
+	mov qword ptr [r9+rcx*8], 0
+	inc rcx
+	jmp loopSetSpt
+
+finSpt:
+
+	;dist[source] = 0
 	mov rdi, [storeSrc]
 	mov r11, 0
 	mov [r8+rdi*8], r11
 	
-	mov r9, OFFSET sptSet
 	mov rcx, 0
 
 	;r8 = dist, r9 = sptSet
