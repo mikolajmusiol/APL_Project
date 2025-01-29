@@ -39,9 +39,10 @@ namespace DijkstraAsm
             try
             {
                 int nodesCount = int.Parse(txtNodesCount.Text);
-                int minConnections = int.Parse(txtMinConn.Text);
+                int connectionsNum = int.Parse(txtMinConn.Text);
                 int weightsRange = int.Parse(txtWightsRange.Text);
-                GraphGeneration.GenerateGraphFile(nodesCount, minConnections, weightsRange, _path);
+                GraphGeneration.GenerateGraphFile(nodesCount, connectionsNum, weightsRange, _path);
+                MessageBox.Show($"Generated graph file of {nodesCount} nodes and {connectionsNum} connections.", "Graph generated");
             }
             catch (Exception ex)
             {
@@ -76,13 +77,13 @@ namespace DijkstraAsm
 
                 if (radioButton1.Checked)
                 {
-                    path = Algorithm.GetShortestPath(graph);
+                    //path = Algorithm.GetShortestPath(graph);
                     long length = Algorithm.GetShortestPathLength(graph);
-                    message = $"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path) + $"\nLength: {length}";
+                    //message = $"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path) + $"\nLength: {length}";
+                    message = $"Start: {graph.StartNode}, End: {graph.EndNode}\nLength: {length}";
                 }
                 else
                 {
-
                     var adjacencyMatrix = graph.ToAdjacencyMatrix();
                     long length = AssemblyFunctions.MyProc1(adjacencyMatrix, graph.GetNodeCount(), graph.StartNode, graph.EndNode);
                     message = $"Start: {graph.StartNode}, End: {graph.EndNode}\nLength: {length}";
