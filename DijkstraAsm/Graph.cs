@@ -48,24 +48,24 @@ public class Graph
     {
         int maxNode = Connections.SelectMany(c => new[] { c.IdNodeA, c.IdNodeB }).Max();
 
-        long[,] matrix = new long[maxNode + 1, maxNode + 1];
+        long[,] matrix = new long[maxNode, maxNode];
 
-        for (int i = 0; i <= maxNode; i++)
-            for (int j = 0; j <= maxNode; j++)
+        for (int i = 0; i < maxNode; i++)
+            for (int j = 0; j < maxNode; j++)
                 matrix[i, j] = 0;
 
         foreach (var connection in Connections)
         {
-            matrix[(long)connection.IdNodeA, (long)connection.IdNodeB] = (long)connection.Weight;
-            matrix[(long)connection.IdNodeB, (long)connection.IdNodeA] = (long)connection.Weight;
+            matrix[(long)connection.IdNodeA-1, (long)connection.IdNodeB-1] = (long)connection.Weight;
+            matrix[(long)connection.IdNodeB-1, (long)connection.IdNodeA-1] = (long)connection.Weight;
         }
 
-        int size = (maxNode + 1) * (maxNode + 1);
+        int size = (maxNode) * (maxNode);
         long[] flatArray = new long[size];
 
-        for (int i = 0; i <= maxNode; i++)
-            for (int j = 0; j <= maxNode; j++)
-                flatArray[i * (maxNode + 1) + j] = matrix[i, j];
+        for (int i = 0; i < maxNode; i++)
+            for (int j = 0; j < maxNode; j++)
+                flatArray[i * maxNode + j] = matrix[i, j];
 
         return flatArray;
     }

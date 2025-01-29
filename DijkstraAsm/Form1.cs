@@ -64,7 +64,7 @@ namespace DijkstraAsm
             {
                 string inputPath = inputPathTextBox.Text;
                 List<int> path = new List<int>();
-                long length = 0;
+                string message = "";
                 Graph graph = new Graph(inputPath);
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
@@ -73,19 +73,24 @@ namespace DijkstraAsm
                     progressBar1.Value = x;
                 });
                 await Task.Run(() => ProgressBar(progress));
+
                 if (radioButton1.Checked)
                 {
                     path = Algorithm.GetShortestPath(graph);
+                    long length = Algorithm.GetShortestPathLength(graph);
+                    message = $"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path) + $"\nLength: {length}";
                 }
                 else
                 {
-                    length = AssemblyFunctions.MyProc1(graph.ToAdjacencyMatrix(), graph.GetNodeCount(), graph.StartNode, graph.EndNode);
+
+                    var adjacencyMatrix = graph.ToAdjacencyMatrix();
+                    long length = AssemblyFunctions.MyProc1(adjacencyMatrix, graph.GetNodeCount(), graph.StartNode, graph.EndNode);
+                    message = $"Start: {graph.StartNode}, End: {graph.EndNode}\nLength: {length}";
                 }
 
                 stopwatch.Stop();
-                length = Algorithm.GetShortestPathLength(graph);
                 timeLabel.Text = "Time: " + stopwatch.Elapsed.TotalMilliseconds.ToString() + "ms";
-                MessageBox.Show($"Start: {graph.StartNode}, End: {graph.EndNode}\n" + "Path: " + string.Join(" -> ", path) + $"\nLength: {length}", "Results");
+                MessageBox.Show(message, "Results");
             }
             catch (Exception ex)
             {
