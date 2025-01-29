@@ -31,9 +31,11 @@ MyProc1 PROC
 	mov rax, 2147483647 ;mov 2147483647 to rax
 	mov r8, OFFSET dist ;move address of dist[] to rbx
 	mov r9, OFFSET sptSet
-
+	
+	;Set up for loop
 	mov rcx, 0
 
+;Fill dist[] with MAX
 loopSetDist:
 	cmp rcx, [storeVert]
 	je finDist
@@ -42,9 +44,11 @@ loopSetDist:
 	jmp loopSetDist
 
 finDist:
-
+	
+	;Set up for loop
 	mov rcx, 0
 
+;Fill setSpt[] with 0s
 loopSetSpt:
 	cmp rcx, [storeVert]
 	je finSpt

@@ -41,7 +41,7 @@ public class Graph
             .Select(c => c.IdNodeA < c.IdNodeB
                 ? new Connection(c.IdNodeA, c.IdNodeB, c.Weight)
                 : new Connection(c.IdNodeB, c.IdNodeA, c.Weight))
-            .Distinct()
+            .DistinctBy(x => new { x.IdNodeA, x.IdNodeB })
             .ToList();
     }
     public int GetNodeCount()
