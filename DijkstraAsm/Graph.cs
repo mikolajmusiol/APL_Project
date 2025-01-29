@@ -36,6 +36,13 @@ public class Graph
                     int.Parse(match[2].Value)));
             }
         };
+
+        Connections = Connections
+            .Select(c => c.IdNodeA < c.IdNodeB
+                ? new Connection(c.IdNodeA, c.IdNodeB, c.Weight)
+                : new Connection(c.IdNodeB, c.IdNodeA, c.Weight))
+            .Distinct()
+            .ToList();
     }
     public int GetNodeCount()
     {
