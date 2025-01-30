@@ -6,32 +6,39 @@ using System.Threading.Tasks;
 
 namespace DijkstraAsm;
 
+// Implements Dijkstra's algorithm for finding the shortest path in a graph
 public static class Algorithm
 {
+    // Computes the shortest distances from the start node to all other nodes
     public static Dictionary<int, int> ComputeShortestDistances(Graph graph)
     {
-        var distances = new Dictionary<int, int>();
-        var visited = new HashSet<int>();
+        var distances = new Dictionary<int, int>(); // Stores shortest known distances
+        var visited = new HashSet<int>(); // Tracks visited nodes
         var nodes = graph.Connections.SelectMany(c => new[] { c.IdNodeA, c.IdNodeB }).Distinct().ToList();
 
+        // Initialize distances to infinity, except for the start node
         foreach (var node in nodes)
         {
             distances[node] = int.MaxValue;
         }
         distances[graph.StartNode] = 0;
 
+        // Process nodes until all are visited
         while (visited.Count < nodes.Count)
         {
+            // Select the unvisited node with the smallest distance
             var currentNode = nodes
                 .Where(n => !visited.Contains(n))
                 .OrderBy(n => distances[n])
                 .FirstOrDefault();
 
+            // If the smallest distance is still infinity, stop (no more reachable nodes)
             if (distances[currentNode] == int.MaxValue)
-                break; 
+                break;
 
             visited.Add(currentNode);
 
+            // Get neighboring nodes and update their distances
             var neighbors = graph.Connections
                 .Where(c => c.IdNodeA == currentNode || c.IdNodeB == currentNode)
                 .Select(c => (Neighbor: c.IdNodeA == currentNode ? c.IdNodeB : c.IdNodeA, Weight: c.Weight));
@@ -52,15 +59,17 @@ public static class Algorithm
         return distances;
     }
 
+    // Retrieves the shortest path from the start node to the end node
     public static List<int> GetShortestPath(Graph graph)
     {
         var distances = ComputeShortestDistances(graph);
         if (distances[graph.EndNode] == int.MaxValue)
-            return new List<int>(); 
+            return new List<int>(); // No path found
 
         var path = new List<int>();
         var currentNode = graph.EndNode;
 
+        // Backtrack from the end node to reconstruct the path
         while (currentNode != graph.StartNode)
         {
             path.Add(currentNode);
@@ -80,16 +89,17 @@ public static class Algorithm
             }
 
             if (nextNode == null)
-                return new List<int>();
+                return new List<int>(); // No valid path
 
             currentNode = nextNode.Value;
         }
 
         path.Add(graph.StartNode);
-        path.Reverse();
+        path.Reverse(); // Reverse to get path from start to end
         return path;
     }
 
+    // Returns the length of the shortest path from start to end node
     public static int GetShortestPathLength(Graph graph)
     {
         var distances = ComputeShortestDistances(graph);
